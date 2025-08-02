@@ -2,390 +2,483 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>UGBS 102 Quiz</title>
+  <title>UGBS 102 Quiz App</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(145deg, #dfe9f3, #ffffff);
-      padding: 20px;
-    }
-    .quiz-container {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 800px;
-      margin: auto;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-    .question {
-      font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-    .options button {
-      display: block;
-      margin: 10px 0;
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: 2px solid #ccc;
-      background: #f9f9f9;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .options button:hover {
-      background-color: #eef7ff;
-    }
-    .options button.correct {
-      background-color: #c8e6c9;
-      border-color: #66bb6a;
-    }
-    .options button.wrong {
-      background-color: #ffcdd2;
-      border-color: #e57373;
-    }
-    .next-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #2196f3;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .next-btn:hover {
-      background-color: #1976d2;
-    }
-    .score {
-      font-size: 20px;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-    .footer {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 14px;
-      color: #666;
-    }
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; }
+    h1 { text-align: center; }
+    .tab-buttons { text-align: center; margin-bottom: 20px; }
+    .tab-buttons button { margin: 5px; padding: 10px 20px; cursor: pointer; }
+    #quiz-container { max-width: 700px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .question { font-size: 18px; margin-bottom: 10px; }
+    .answers label { display: block; margin-bottom: 8px; }
+    .result { margin-top: 20px; font-weight: bold; }
+    #next-btn { margin-top: 10px; }
+    footer { text-align: center; margin-top: 30px; font-size: 14px; color: #888; }
   </style>
 </head>
 <body>
-  <div class="quiz-container">
-    <div id="quiz">
-      <div class="question" id="question"></div>
-      <div class="options" id="options"></div>
-      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
-      <div class="score" id="score"></div>
-    </div>
-    <div class="footer">Copyright@2025 by <strong>Israelnjor</strong></div>
-  </div>
 
-  <script>
-    const questions = [
-      {
-        question: "What are the four stages of the information processing cycle?",
-        options: [
-          "Input, Storage, Display, Output",
-          "Input, Processing, Output, Storage",
-          "Data, Transfer, Output, Storage",
-          "Processing, Storage, Display, Transfer"
-        ],
-        answer: 1
-      },
-      {
-        question: "Which of these is *not* a basic component of a computer system?",
-        options: ["Keyboard", "System unit", "Monitor", "Mousepad"],
-        answer: 3
-      },
-      {
-        question: "The physical parts of the computer that you can touch are called:",
-        options: ["Software", "Applications", "Hardware", "Firmware"],
-        answer: 2
-      },
-      {
-    question: "Which device is considered an output device?",
-    options: ["Keyboard", "Joystick", "Microphone", "Projector"],
-    answer: 3
-    },
-    {
-    question: "Computer literacy is important because:",
-    options: ["It helps fix hardware", "It allows programming for everyone", "It helps individuals understand and use computers effectively", "It helps avoid all online risks"],
-    answer: 2
-    },
-    {
-    question: "System software includes all of the following *except*:",
-    options: ["Operating systems", "Utility programs", "Device drivers", "Video editing tools"],
-    answer: 3
-    },
-    {
-    question: "Application software is primarily used to:",
-    options: ["Manage system resources", "Help users perform specific tasks", "Control hardware", "Encrypt files"],
-    answer: 1
-    },
-    {
-    question: "Which is a utility program?",
-    options: ["Excel", "Disk cleanup", "Firefox", "Microsoft Word"],
-    answer: 1
-    },
-    {
-    question: "Which of these software types is used for learning and training?",
-    options: ["Educational software", "Antivirus software", "Spreadsheet software", "Web browsers"],
-    answer: 0
-    },
-    {
-    question: "Which of the following is an example of system software?",
-    options: ["Adobe Photoshop", "Android OS", "WhatsApp", "MS Access"],
-    answer: 1
-    },
-    {
-    question: "The Internet originated from a project called:",
-    options: ["WebNet", "ARPANET", "DataNet", "CyberNet"],
-    answer: 1
-    },
-    {
-    question: "What does ISP stand for?",
-    options: ["Internal Software Provider", "Internet System Processing", "Internet Service Provider", "Information Storage Protocol"],
-    answer: 2
-    },
-    {
-    question: "Which is used to uniquely identify a website?",
-    options: ["IP address", "URL", "HTML", "Firewall"],
-    answer: 1
-    },
-    {
-    question: "Which software allows users to view web pages?",
-    options: ["Compiler", "Browser", "Editor", "Drive"],
-    answer: 1
-    },
-    {
-    question: "Which of these is *not* a feature of a multimedia web page?",
-    options: ["Videos", "Audio", "Text", "Power Supply"],
-    answer: 3
-    },
-    {
-    question: "A computer used to control a microwave is an example of:",
-    options: ["Mainframe", "Supercomputer", "Embedded system", "Personal computer"],
-    answer: 2
-    },
-    {
-    question: "Which computer is best for running complex simulations?",
-    options: ["Laptop", "Supercomputer", "Smartphone", "Notebook"],
-    answer: 1
-    },
-    {
-    question: "Which of the following is *not* a mobile device?",
-    options: ["Tablet", "Smartwatch", "Desktop", "Smartphone"],
-    answer: 2
-    },
-    {
-    question: "Which computer type is commonly used in large businesses for managing bulk data?",
-    options: ["Mainframe", "Netbook", "Embedded", "Wearable"],
-    answer: 0
-    },
-    {
-    question: "Which of these is *not* a component of an information system?",
-    options: ["People", "Procedures", "Malware", "Data"],
-    answer: 2
-    },
-    {
-    question: "Malware refers to:",
-    options: ["A data structure", "Harmful software", "Network hardware", "Authentication method"],
-    answer: 1
-    },
-    {
-    question: "Which technique is used to protect data by converting it into unreadable form?",
-    options: ["Biometrics", "Encryption", "Spoofing", "Bandwidth"],
-    answer: 1
-    },
-    {
-    question: "What is the role of a firewall?",
-    options: ["Boost hardware performance", "Prevent malware from spreading", "Block unauthorized access to networks", "Increase data storage"],
-    answer: 2
-    },
-    {
-    question: "Which of the following is a good netiquette practice?",
-    options: ["Typing in all caps", "Using proper grammar and being respectful", "Sharing passwords", "Ignoring citations"],
-    answer: 1
-    },
-    {
-    question: "A LAN typically connects computers within:",
-    options: ["A city", "A country", "A home or office", "A continent"],
-    answer: 2
-    },
-    {
-    question: "Which of the following is a network topology?",
-    options: ["Fiber", "Ring", "Modem", "Server"],
-    answer: 1
-    },
-    {
-    question: "Bluetooth is best used for:",
-    options: ["Long-distance communication", "Local wireless connection between devices", "Accessing the web", "Backing up data"],
-    answer: 1
-    },
-    {
-    question: "Which standard governs internet communication?",
-    options: ["ASCII", "TCP/IP", "HTML", "RAM"],
-    answer: 1
-    },
-    {
-    question: "Which of these is a wireless transmission medium?",
-    options: ["Twisted pair", "Coaxial", "Fiber optic", "Infrared"],
-    answer: 3
-    },
-    {
-    question: "Which system uses only 0s and 1s to represent data?",
-    options: ["Decimal", "Binary", "Octal", "Hexadecimal"],
-    answer: 1
-    },
-    {
-    question: "How many bits are in a byte?",
-    options: ["2", "4", "8", "10"],
-    answer: 2
-    },
-    {
-    question: "Which code is commonly used to represent characters?",
-    options: ["HTTP", "ASCII", "USB", "DNS"],
-    answer: 1
-    },
-    {
-    question: "What converts real-world signals into digital form?",
-    options: ["DAC", "ADC", "UPS", "LCD"],
-    answer: 1
-    },
-    {
-    question: "Which of these is not an operating system?",
-    options: ["Linux", "Windows", "Chrome", "macOS"],
-    answer: 2
-    },
-    {
-    question: "Which OS function manages computer memory?",
-    options: ["Storage handling", "Taskbar", "Memory management", "Antivirus"],
-    answer: 2
-    },
-    {
-    question: "The OS component that lets users interact with the system is called:",
-    options: ["Kernel", "Interface", "Shell", "BIOS"],
-    answer: 1
-    },
-    {
-    question: "Which is a mobile operating system?",
-    options: ["Ubuntu", "Android", "Windows Server", "Fedora"],
-    answer: 1
-    },
-    {
-    question: "Microsoft Word is primarily used for:",
-    options: ["Calculations", "Data storage", "Document creation", "Programming"],
-    answer: 2
-    },
-    {
-    question: "Which software is best for budgeting?",
-    options: ["PowerPoint", "Excel", "Access", "Paint"],
-    answer: 1
-    },
-    {
-    question: "PowerPoint is used mainly for:",
-    options: ["Presentations", "Email", "Audio editing", "Drawing"],
-    answer: 0
-    },
-    {
-    question: "Which enterprise tool helps manage customer relationships?",
-    options: ["CRM", "HRM", "OS", "XML"],
-    answer: 0
-    },
-    {
-    question: "What is virtualization?",
-    options: ["Turning physical data into analog", "Creating virtual versions of resources", "Destroying real hardware", "Encrypting data"],
-    answer: 1
-    },
-    {
-    question: "Which system is designed to back up operations during failure?",
-    options: ["VPN", "Recovery system", "HTML", "Compiler"],
-    answer: 1
-    },
-    {
-    question: "A database is used to:",
-    options: ["Design apps", "Store and organize data", "Access the web", "Connect devices"],
-    answer: 1
-    },
-    {
-    question: "Which of these is *not* a database type?",
-    options: ["Relational", "Object-oriented", "Structured", "Multidimensional"],
-    answer: 2
-    },
-    {
-    question: "A collection of related fields is called a:",
-    options: ["Table", "File", "Record", "Form"],
-    answer: 2
-    },
-    {
-    question: "What is the first phase of the System Development Life Cycle (SDLC)?",
-    options: ["Design", "Analysis", "Planning", "Implementation"],
-    answer: 2
-    },
-    {
-    question: "Feasibility studies in SDLC help determine:",
-    options: ["App design", "Whether a solution is practical and cost-effective", "Number of users", "Software version"],
-    answer: 1
-    },
-    {
-    question: "Which of the following is a high-level programming language?",
-    options: ["Assembly", "C++", "Machine code", "Binary"],
-    answer: 1
-    },
-    {
-    question: "Which tool is used to write and run code in one place?",
-    options: ["SDK", "IDE", "HTML", "BIOS"],
-    answer: 1
-    }
+<h1>UGBS 102 Quiz App</h1>
+<div class="tab-buttons">
+  <button onclick="loadSubtopic('Introduction')">Introduction</button>
+  <button onclick="loadSubtopic('Hardware')">Hardware</button>
+  <button onclick="loadSubtopic('Software')">Software</button>
+  <button onclick="loadSubtopic('Data')">Data Representation</button>
+  <button onclick="loadSubtopic('Networks')">Networks</button>
+  <button onclick="loadSubtopic('OS')">Operating Systems</button>
+</div>
 
-    ];
+<div id="quiz-container">
+  <div class="question" id="question"></div>
+  <div class="answers" id="answers"></div>
+  <button id="next-btn" onclick="nextQuestion()">Next</button>
+  <div class="result" id="result"></div>
+</div>
 
-    let currentQuestion = 0;
-    let score = 0;
+<footer>
+  Built with ❤️ by israelnjor
+</footer>
 
-    function loadQuestion() {
-      const q = questions[currentQuestion];
-      document.getElementById("question").textContent = `${currentQuestion + 1}. ${q.question}`;
-      const optionsDiv = document.getElementById("options");
-      optionsDiv.innerHTML = "";
-      q.options.forEach((opt, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = opt;
-        btn.onclick = () => selectOption(index);
-        optionsDiv.appendChild(btn);
-      });
-    }
-
-    function selectOption(selected) {
-      const buttons = document.querySelectorAll(".options button");
-      buttons.forEach((btn, index) => {
-        btn.disabled = true;
-        if (index === questions[currentQuestion].answer) {
-          btn.classList.add("correct");
+<script>
+const quizData = {
+  Introduction: [
+    {
+      question: "What is the main function of a computer?",
+      options: ["To perform calculations", "To store data", "To process data into information", "To print documents"],
+      answer: "To process data into information"
+    },
+    {
+      question: "Which of the following best describes the information processing cycle?",
+      options: ["Input → Storage → Output → Processing", "Storage → Input → Output", "Input → Processing → Output → Storage", "Processing → Input → Output → Storage"],
+      answer: "Input → Processing → Output → Storage"
+    },
+    {
+      question: "What is the primary purpose of an operating system?",
+      options: ["To manage hardware resources", "To run applications", "To provide a user interface", "All of the above"],
+      answer: "All of the above"
+    },
+    {
+      question: "Which of these is an example of application software?",
+      options: ["Microsoft Word", "Windows 10", "Linux Kernel", "BIOS"],
+      answer: "Microsoft Word"
+    },
+    {
+      question: "What does CPU stand for?",
+      options: ["Central Processing Unit", "Computer Personal Unit", "Central Peripheral Unit", "Computer Processing Unit"],
+      answer: "Central Processing Unit"
+    },
+    {
+      question: "Which of these is a type of storage device?",
+      options: ["RAM", "CPU", "Hard Drive", "Monitor"],
+      answer: "Hard Drive"
+    },
+    {
+      question: "What is the function of RAM in a computer?",
+      options: ["To store data permanently", "To provide temporary storage for data in use", "To process data", "To display output"],
+      answer: "To provide temporary storage for data in use"
+    },
+    {
+      question: "Which of these is an input device?",
+      options: ["Keyboard", "Monitor", "Printer", "Speaker"],
+      answer: "Keyboard"
+    },
+    {
+      question: "What does GUI stand for?",
+      options: ["Graphical User Interface", "General User Interface", "Graphical Universal Interface", "General Universal Interface"],
+      answer: "Graphical User Interface"
+    },
+    {
+      question: "What is the purpose of a network?",
+      options: ["To connect computers and share resources", "To store data", "To run applications", "To display output"],
+      answer: "To connect computers and share resources"
+    },
+    {
+          question: "What are the four stages of the information processing cycle?",
+          options: ["Input, Storage, Display, Output", "Input, Processing, Output, Storage", "Data, Transfer, Output, Storage", "Processing, Storage, Display, Transfer"],
+          answer: 1
+        },
+        {
+          question: "Which of these is *not* a basic component of a computer system?",
+          options: ["Keyboard", "System unit", "Monitor", "Mousepad"],
+          answer: 3
+        },
+        {
+          question: "The physical parts of the computer that you can touch are called:",
+          options: ["Software", "Applications", "Hardware", "Firmware"],
+          answer: 2
+        },
+        {
+          question: "Which device is primarily used to display output to a user?",
+          options: ["Keyboard", "Mouse", "Monitor", "Scanner"],
+          answer: 2
+        },
+        {
+          question: "Which of the following is an input device?",
+          options: ["Printer", "Monitor", "Mouse", "Speaker"],
+          answer: 2
+        },
+        {
+          question: "Software that manages computer hardware and software resources is:",
+          options: ["Application Software", "Web Browser", "Operating System", "Compiler"],
+          answer: 2
+        },
+        {
+          question: "A collection of related data stored electronically is called:",
+          options: ["Program", "Folder", "Database", "File"],
+          answer: 2
+        },
+        {
+          question: "Which of these is volatile memory?",
+          options: ["ROM", "RAM", "SSD", "Hard Drive"],
+          answer: 1
+        },
+        {
+          question: "What is the brain of the computer?",
+          options: ["Hard Disk", "RAM", "CPU", "Monitor"],
+          answer: 2
+        },
+        {
+          question: "Which of these is used for permanent storage?",
+          options: ["RAM", "ROM", "Cache", "CPU"],
+          answer: 1
         }
-        if (index === selected && selected !== questions[currentQuestion].answer) {
-          btn.classList.add("wrong");
-        }
-      });
-      if (selected === questions[currentQuestion].answer) {
-        score++;
-      }
+  ],
+  Hardware: [
+    {
+      question: "Which of these is an input device?",
+      options: ["Monitor", "Keyboard", "Printer", "Speaker"],
+      answer: "Keyboard"
+    },
+    {
+      question: "Which part of the computer performs arithmetic operations?",
+      options: ["RAM", "ROM", "ALU", "BIOS"],
+      answer: "ALU"
+    },
+    {
+      question: "What does CPU stand for?",
+      options: ["Central Processing Unit", "Computer Personal Unit", "Central Peripheral Unit", "Computer Processing Unit"],
+      answer: "Central Processing Unit"
+    },
+    {
+      question: "Which of these is a storage device?",
+      options: ["Monitor", "Keyboard", "Hard Drive", "Mouse"],
+      answer: "Hard Drive"
+    },
+    {
+      question: "What is the primary function of RAM?",
+      options: ["Store data permanently", "Execute programs", "Provide temporary storage for data in use", "Control hardware devices"],
+      answer: "Provide temporary storage for data in use"
+    },
+    {
+      question: "Which component is responsible for the computer's graphics output?",
+      options: ["CPU", "GPU", "RAM", "Motherboard"],
+      answer: "GPU"
+    },
+    {
+      question: "What does BIOS stand for?",
+      options: ["Basic Input Output System", "Binary Input Output System", "Basic Integrated Operating System", "Binary Integrated Operating System"],
+      answer: "Basic Input Output System"
+    },
+    {
+      question: "Which of these is a type of non-volatile memory?",
+      options: ["RAM", "Cache", "ROM", "Registers"],
+      answer: "ROM"
+    },
+    {
+      question: "What is the function of a motherboard?",
+      options: ["Store data", "Connect all components of the computer", "Process data", "Display output"],
+      answer: "Connect all components of the computer"
+    },
+    {
+      question: "Which device is used to input text into a computer?",
+      options: ["Monitor", "Mouse", "Keyboard", "Printer"],
+      answer: "Keyboard"
+    },
+    {
+      question: "What is the purpose of a power supply unit in a computer?",
+      options: ["To provide power to the components", "To store data", "To process data", "To display output"],
+      answer: "To provide power to the components"
+    },
+    {
+      question: "Which of these is a type of optical storage device?",
+      options: ["Hard Drive", "SSD", "CD", "RAM"],
+      answer: "CD"
+    },
+    {
+      question: "What is the function of a cooling system in a computer?",
+      options: ["To store data", "To process data", "To keep components at optimal temperature", "To display output"],
+      answer: "To keep components at optimal temperature"
+    },
+    {
+      question: "Which of these is a type of expansion card?",
+      options: ["Network Interface Card", "Hard Drive", "RAM", "CPU"],
+      answer: "Network Interface Card"
+    },
+    {
+      question: "What is the purpose of a sound card in a computer?",
+      options: ["To process graphics", "To manage input devices", "To handle audio output", "To store data"],
+      answer: "To handle audio output"
     }
-
-    function nextQuestion() {
-      currentQuestion++;
-      if (currentQuestion < questions.length) {
-        loadQuestion();
-      } else {
-        document.getElementById("quiz").innerHTML = `<p class='score'>Quiz Completed! Your score is ${score}/${questions.length}</p>`;
-      }
+    // Add more
+  ],
+  Software: [
+    {
+      question: "Which of the following is system software?",
+      options: ["Microsoft Word", "Windows 10", "Adobe Photoshop", "Excel"],
+      answer: "Windows 10"
+    },
+    {
+      question: "What is the primary function of application software?",
+      options: ["To manage hardware resources", "To perform specific tasks for users", "To provide a user interface", "To run the operating system"],
+      answer: "To perform specific tasks for users"
+    },
+    {
+      question: "Which of these is an example of open-source software?",
+      options: ["Microsoft Office", "Adobe Photoshop", "Linux", "Windows 10"],
+      answer: "Linux"
+    },
+    {
+      question: "What does GUI stand for?",
+      options: ["Graphical User Interface", "General User Interface", "Graphical Universal Interface", "General Universal Interface"],
+      answer: "Graphical User Interface"
+    },
+    {
+      question: "Which of these is a type of software license?",
+      options: ["Proprietary License", "Open Source License", "Freeware License", "All of the above"],
+      answer: "All of the above"
+    },
+    {
+      question: "What is the purpose of antivirus software?",
+      options: ["To manage hardware resources", "To protect against malware and viruses", "To run applications", "To provide internet connectivity"],
+      answer: "To protect against malware and viruses"
+    },
+    {
+      question: "Which of these is a web browser?",
+      options: ["Microsoft Word", "Google Chrome", "Adobe Reader", "Notepad"],
+      answer: "Google Chrome"
+    },
+    {
+      question: "What is the function of a compiler in software development?",
+      options: ["To convert source code into machine code", "To run applications", "To manage hardware resources", "To provide a user interface"],
+      answer: "To convert source code into machine code"
+    },
+    {
+      question: "Which of these is a type of database software?",
+      options: ["MySQL", "Microsoft Word", "Adobe Photoshop", "Google Chrome"],
+      answer: "MySQL"
+    },
+    {
+      question: "What is the purpose of a software update?",
+      options: ["To add new features and fix bugs", "To uninstall the software", "To change the user interface", "To increase file size"],
+      answer: "To add new features and fix bugs"
+    },
+    {
+      question: "Which of these is a programming language?",
+      options: ["HTML", "CSS", "JavaScript", "All of the above"],
+      answer: "All of the above"
+    },
+    {
+      question: "What is the purpose of a software development kit (SDK)?",
+      options: ["To provide tools for developing software applications", "To run applications", "To manage hardware resources", "To provide internet connectivity"],
+      answer: "To provide tools for developing software applications"
+    },
+    {
+      question: "Which of these is a cloud storage service?",
+      options: ["Google Drive", "Microsoft Word", "Adobe Photoshop", "Notepad"],
+      answer: "Google Drive"
+    },
+    {
+      question: "What is the purpose of a software patch?",
+      options: ["To fix bugs and vulnerabilities", "To add new features", "To change the user interface", "To uninstall the software"],
+      answer: "To fix bugs and vulnerabilities"
+    },
+    {
+      question: "Which of these is a type of software development methodology?",
+      options: ["Agile", "Waterfall", "Scrum", "All of the above"],
+      answer: "All of the above"
     }
+  ],
+  Data: [
+    {
+      question: "What is the basic unit of data in computing?",
+      options: ["Byte", "Bit", "Word", "Character"],
+      answer: "Bit"
+    },
+    {
+      question: "Which of these is a type of data representation?",
+      options: ["Binary", "Decimal", "Hexadecimal", "All of the above"],
+      answer: "All of the above"
+    },
+    {
+      question: "What does ASCII stand for?",
+      options: ["American Standard Code for Information Interchange", "Advanced System Code for Information Interchange", "American Standard Code for Internet Interchange", "Advanced System Code for Internet Interchange"],
+      answer: "American Standard Code for Information Interchange"
+    },
+    {
+      question: "Which of these is a character encoding standard?",
+      options: ["UTF-8", "ISO 8859-1", "ASCII", "All of the above"],
+      answer: "All of the above"
+    },
+    {
+      question: "What is the purpose of data compression?",
+      options: ["To increase file size", "To reduce file size", "To encrypt data", "To convert data formats"],
+      answer: "To reduce file size"
+    }
+  ],
+  Networks: [
+    {
+      question: "What does LAN stand for?",
+      options: ["Large Area Network", "Local Area Network", "Long Access Network", "Logical Area Network"],
+      answer: "Local Area Network"
+    },
+    {
+      question: "Which of these is a type of network topology?",
+      options: ["Star", "Ring", "Bus", "All of the above"],
+      answer: "All of the above"
+    },
+    {
+      question: "What is the primary purpose of a router?",
+      options: ["To connect devices within a network", "To connect different networks", "To store data", "To process data"],
+      answer: "To connect different networks"
+    },
+    {
+      question: "What does IP stand for in networking?",
+      options: ["Internet Protocol", "Internal Protocol", "Interconnected Protocol", "Integrated Protocol"],
+      answer: "Internet Protocol"
+    },
+    {
+      question: "Which of these is a common network protocol?",
+      options: ["HTTP", "FTP", "TCP/IP", "All of the above"],
+      answer: "All of the above"
+    },
+    {
+      question: "What is the function of a firewall in a network?",
+      options: ["To store data", "To protect the network from unauthorized access", "To connect devices", "To process data"],
+      answer: "To protect the network from unauthorized access"
+    },
+    {
+      question: "What is bandwidth in networking?",
+      options: ["The amount of data that can be transmitted in a given time", "The speed of the network", "The type of network connection", "The number of devices connected to the network"],
+      answer: "The amount of data that can be transmitted in a given time"
+    },
+    {
+      question: "What is a VPN?",
+      options: ["Virtual Private Network", "Virtual Public Network", "Variable Private Network", "Variable Public Network"],
+      answer: "Virtual Private Network"
+    },
+    {
+      question: "What is the purpose of DNS in networking?",
+      options: ["To convert domain names to IP addresses", "To encrypt data", "To compress data", "To store data"],
+      answer: "To convert domain names to IP addresses"
+    },
+    {
+      question: "What is a modem used for?",
+      options: ["To connect to the internet", "To store data", "To process data", "To display output"],
+      answer: "To connect to the internet"
+    }
+  ],
+  OS: [
+    {
+      question: "Which of the following is a function of an operating system?",
+      options: ["Data analysis", "Web browsing", "Managing hardware and software resources", "Typing documents"],
+      answer: "Managing hardware and software resources"
+    },
+    {
+      question: "What is the main purpose of an operating system?",
+      options: ["To run applications", "To manage computer hardware", "To provide a user interface", "All of the above"],
+      answer: "All of the above"
+    },
+    {
+      question: "Which of these is a popular operating system?",
+      options: ["Windows", "Linux", "macOS", "All of the above"],
+      answer: "All of the above"
+    },
+    {
+      question: "What does GUI stand for?",
+      options: ["Graphical User Interface", "General User Interface", "Graphical Universal Interface", "General Universal Interface"],
+      answer: "Graphical User Interface"
+    },
+    {
+      question: "Which of these is a command-line interface?",
+      options: ["Windows Explorer", "Terminal", "File Manager", "Control Panel"],
+      answer: "Terminal"
+    },
+    {
+      question: "What is multitasking in an operating system?",
+      options: ["Running multiple applications simultaneously", "Running one application at a time", "Switching between applications quickly", "None of the above"],
+      answer: "Running multiple applications simultaneously"
+    },
+    {
+      question: "Which of these is a type of operating system?",
+      options: ["Real-time OS", "Batch OS", "Time-sharing OS", "All of the above"],
+      answer: "All of the above"
+    },
+    {
+      question: "What is the kernel in an operating system?",
+      options: ["The user interface", "The core component that manages system resources", "A type of application software", "A hardware component"],
+      answer: "The core component that manages system resources"
+    },
+    {
+      question: "Which of these is a mobile operating system?",
+      options: ["Windows 10", "Android", "macOS", "Linux"],
+      answer: "Android"
+    },
+    {
+      question: "What is the purpose of device drivers in an operating system?",
+      options: ["To manage user accounts", "To control hardware devices", "To run applications", "To provide internet connectivity"],
+      answer: "To control hardware devices"
+    },
+    {
+      question: "What is a file system in an operating system?",
+      options: ["A way to organize and store files on a disk", "A type of application software", "A hardware component", "A network protocol"],
+      answer: "A way to organize and store files on a disk"
+    }
+  ]
+};
 
-    loadQuestion();
-  </script>
+let currentSubtopic = "Introduction";
+let currentQuestion = 0;
+let score = 0;
+
+function loadSubtopic(topic) {
+  currentSubtopic = topic;
+  currentQuestion = 0;
+  score = 0;
+  document.getElementById("result").innerText = "";
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = quizData[currentSubtopic][currentQuestion];
+  document.getElementById("question").innerText = q.question;
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+  q.options.forEach((opt, i) => {
+    answersDiv.innerHTML += `<label><input type="radio" name="answer" value="${opt}"> ${opt}</label>`;
+  });
+}
+
+function nextQuestion() {
+  const selected = document.querySelector('input[name="answer"]:checked');
+  if (!selected) return alert("Please select an answer.");
+  const answer = selected.value;
+  if (answer === quizData[currentSubtopic][currentQuestion].answer) {
+    score++;
+  }
+  currentQuestion++;
+  if (currentQuestion < quizData[currentSubtopic].length) {
+    showQuestion();
+  } else {
+    document.getElementById("question").innerText = "Quiz Complete!";
+    document.getElementById("answers").innerHTML = "";
+    document.getElementById("next-btn").style.display = "none";
+    document.getElementById("result").innerText = `You scored ${score}/${quizData[currentSubtopic].length}`;
+  }
+}
+
+// Load first question on page load
+window.onload = () => loadSubtopic(currentSubtopic);
+</script>
+
 </body>
 </html>
